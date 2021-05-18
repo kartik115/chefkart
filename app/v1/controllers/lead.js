@@ -8,10 +8,10 @@ module.exports.getLead = async (req, res) => {
     let userId = res.locals.userId;
     const leadsDao = new LeadsDao();
     if (req.query.startDate && req.query.endDate) {
-        startDate = moment(req.query.startDate).add(5.5, 'hour').startOf('day').toISOString();
-        endDate = moment(req.query.endDate).add(5.5, 'hour').endOf('day').toISOString();
+        startDate = moment(req.query.startDate).startOf('day').toISOString().replace('Z', ' ').replace('T', ' ').replace('.000', '');
+        endDate = moment(req.query.endDate).endOf('day').toISOString().replace('Z', ' ').replace('T', ' ').replace('.999', '');
         console.log(startDate, endDate);
-        resp = await leadsDao.findUserLeadByTimeInterval(userId,)
+        resp = await leadsDao.findUserLeadByTimeInterval(userId, startDate, endDate);
     } else {
         resp = await leadsDao.findLeadsByUserId(userId);
     }
