@@ -6,6 +6,7 @@ const { setPassword, validPassword } = require("../../helpers/password");
 const { generateJwt } = require("../../helpers/auth");
 const moment = require("moment");
 
+
 module.exports.login = async (req, res) => {
     try {
         passport.authenticate('users', async function (err, user, info) {
@@ -19,13 +20,13 @@ module.exports.login = async (req, res) => {
                 try {
                     token = generateJwt(user);   
                     const userTokenDao = new UserTokensDao();
+                    /** add token into database */
                     let tokenData = {
                         "userId": user.id,
                         "token": token,
                         "expireAt": new Date(moment().add(1, 'day').utc()),
                     }
                     await userTokenDao.create(tokenData);
-                    /** add token into database */
                     return responseSender('Success', [{ token: token }], res, 200);
                 } catch (error) {
                     console.log('The error in login  -->', error);
