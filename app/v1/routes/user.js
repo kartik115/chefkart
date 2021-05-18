@@ -1,5 +1,5 @@
 module.exports.init = (app) => {
-    // const {validate} = require('./../middleware/validRequest');
+    const {validate} = require('./../middleware/validateRequest');
     const routerV1 = app.get('routerV1');
     const userCtrl = require("../controllers/user");
 
@@ -8,5 +8,5 @@ module.exports.init = (app) => {
 
     routerV1.route("/user")
         .post(userCtrl.addUser)
-        .get(userCtrl.getUser)
+        .get(validate, userCtrl.getUser)
 }

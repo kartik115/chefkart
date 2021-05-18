@@ -15,6 +15,14 @@ class LeadsDao {
     }
   }
 
+  async findLeadsByUserId(userId) {
+    return this.db.query("SELECT * FROM leads WHERE lead_created_by = ?;", [userId]);
+  }
+
+  async findUserLeadByTimeInterval(userId, startDate, endDate) {
+    return this.db.query("SELECT * FROM leads WHERE lead_created_by = ? AND created_at between ? AND ?;", [userId, startDate, endDate]);
+  }
+
   async findOne(id) {
     return this.db.query("SELECT * FROM leads WHERE id = ?;", [id]);
   }
