@@ -2,8 +2,8 @@ const util = require("util");
 const { getErrorCode } = require("../../../helpers/errorCodes");
 
 class LeadsDao {
-  constructor() {
-    this.db = global.db;
+  constructor(db) {
+    this.db = global.db || db;
   }
 
   async findAll() {

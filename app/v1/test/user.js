@@ -37,7 +37,7 @@ describe('Test user specific unit test cases', () => {
             ];
             dbCallStub.onCall(0).returns(resp);
             let result = await usersDao.findAll();
-            console.log("result====>", result);
+            // console.log("result====>", result);
             expect(dbCallStub.firstCall.returnValue).equal(result);
         })
     })
@@ -51,7 +51,7 @@ describe('Test user specific unit test cases', () => {
             };
             dbCallStub.onCall(0).returns(1);
             let result = await usersDao.create(user);
-            console.log("result====>", result);
+            // console.log("result====>", result);
             expect(dbCallStub.firstCall.returnValue).equal(1);
         })
     })
