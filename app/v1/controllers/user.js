@@ -45,8 +45,8 @@ module.exports.login = async (req, res) => {
 module.exports.getUser = async (req, res) => {
     try {
         const usersDao = new UsersDao();
-        let resp = await usersDao.findAll();
-        return responseSender("list fetch", resp, res, 200);    
+        let resp = await usersDao.findOne(res.locals.userId);
+        return responseSender("profile details", resp, res, 200);    
     } catch (error) {
         console.log("error is", error);
         return responseSender("Server error", [], res, 500);
